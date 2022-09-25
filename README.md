@@ -21,9 +21,12 @@
 
 
 # Environments
+![](env.svg)
+
 * Host OS: Windows 10
-* Hypervisor: [hyper-v gen 1](https://en.wikipedia.org/wiki/Hyper-V)
-* Guest OS: [ubuntu-12.04 LTS](https://old-releases.ubuntu.com/releases/12.04/ubuntu-12.04-desktop-i386.iso)
+* Hypervisor: [Hyper-v Gen 1](https://en.wikipedia.org/wiki/Hyper-V)
+* > 주의: Gen 2는 Ubuntu-12.04를 지원하지 않음
+* Guest OS: [Ubuntu-12.04 LTS](https://old-releases.ubuntu.com/releases/12.04/ubuntu-12.04-desktop-i386.iso)
 * x86 emulator: [bochs-2.6.2](https://en.wikipedia.org/wiki/Bochs)
 
 
