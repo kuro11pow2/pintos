@@ -17,7 +17,8 @@
 
 ## repository 변경
 지원이 끝난지 한참 지난 버전이므로 패키지 관리자가 보는 repository 주소를 old-releases로 바꿔야 한다.
-```
+
+```console
 sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 sudo apt-get update && sudo apt-get upgrade -y
 ```
@@ -34,7 +35,7 @@ sudo apt-get install openssh-server
 ufw allow ssh
 ```
 
-> 이후부터는 ssh 접속하여 작업 진행한다.
+> 이후부터는 ssh로 접속하여 작업 진행한다.
 
 ## gcc-4.4 설치
 ```console
@@ -80,7 +81,7 @@ make
 
 ## pintos 환경 변수 등록
 ```console
-echo -e '\n'# pintos | sudo tee -a ~/.bashrc
+echo -e "\n# pintos" | sudo tee -a ~/.bashrc
 echo export PATH="\$PATH:/home/$USER/pintos/src/utils" | sudo tee -a ~/.bashrc
 source ~/.bashrc
 ```
