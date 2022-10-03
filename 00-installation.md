@@ -71,7 +71,7 @@ cd ..
 curl -LJo pintos.tar.gz https://github.com/kuro11pow2/pintos/blob/main/install/pintos.tar.gz?raw=true
 tar xvf pintos.tar.gz
 ```
-> 출처: http://bowbowbow.tistory.com/attachment/cfile9.uf@216A3B4956D876CB03A881.gz
+> 출처: http://www.stanford.edu/class/cs140/projects/pintos/pintos.tar.gz
 
 ## pintos 컴파일
 ```console

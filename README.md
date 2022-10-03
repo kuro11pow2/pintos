@@ -1,7 +1,7 @@
 # Index
 0. [Installation](./00-installation.md)
 1. [Introduction](./01-Introduction.md)
-2. Command Line Parsing
+2. [Command Line Parsing](./02-command-line-parsing.md)
 3. System Call
 4. Hierarchical Process Structure
 5. File Descriptor
@@ -23,12 +23,13 @@
 # Environments
 ![](env.svg)
 
-* Host OS: Windows 10
+* OS: Windows 10
 * Hypervisor: [Hyper-v Gen 1](https://en.wikipedia.org/wiki/Hyper-V)
 * > 주의: Gen 2는 Ubuntu-12.04를 지원하지 않음
-* Guest OS: [Ubuntu-12.04 LTS](https://old-releases.ubuntu.com/releases/12.04/ubuntu-12.04-desktop-i386.iso)
+* VM: [Ubuntu-12.04 LTS](https://old-releases.ubuntu.com/releases/12.04/ubuntu-12.04-desktop-i386.iso)
 * x86 emulator: [bochs-2.6.2](https://en.wikipedia.org/wiki/Bochs)
 
 
 # Reference
 https://oslab.kaist.ac.kr/wp-content/uploads/esos_files/courseware/undergraduate/PINTOS/Pintos_all.pdf
+https://web.stanford.edu/class/cs140/projects/pintos/pintos.pdf
