@@ -1,5 +1,8 @@
 # 목차
 - [목차](#목차)
+- [Source Tree Overview](#source-tree-overview)
+- [Files in build directory](#files-in-build-directory)
+  - [참고](#참고)
 - [Pintos File System 사용 및 user program 실행](#pintos-file-system-사용-및-user-program-실행)
   - [userprog 빌드](#userprog-빌드)
   - [파일 시스템 디스크 생성](#파일-시스템-디스크-생성)
@@ -8,9 +11,68 @@
   - [실행할 응용 프로그램을 파일 시스템 디스크에 복사](#실행할-응용-프로그램을-파일-시스템-디스크에-복사)
   - [프로그램 실행](#프로그램-실행)
   - [결합된 명령어](#결합된-명령어)
-- [Patch 파일 만들기](#patch-파일-만들기)
-  - [예제](#예제)
-- [Patch 파일 적용하기](#patch-파일-적용하기)
+- [Patch 적용](#patch-적용)
+  - [Patch 파일 만들기](#patch-파일-만들기)
+    - [파일 vs 파일 비교하여 patch 파일 생성](#파일-vs-파일-비교하여-patch-파일-생성)
+  - [Patch 파일 적용하기](#patch-파일-적용하기)
+
+
+# Source Tree Overview
+`pintos/src` 디렉토리의 구조를 설명한다.
+
+* `threads/`
+  * 커널을 구성하는 기초 코드 (프로젝트1)
+* `userprog/`
+  * 유저 프로그램 로더 코드 (프로젝트2)
+* `vm/`
+  * virtual memory 코드 (프로젝트3)
+  * 현재 거의 비어있음
+* `filesys/`
+  * 파일 시스템 코드 (프로젝트4)
+* `devices/`
+  * I/O 인터페이스 코드 (프로젝트1)
+  * 타이머 구현 제외하면 수정할 필요 없음
+* `lib/`
+  * 표준 C 라이브러리의 부분집합 구현. 커널과 유저 프로그램 모두에서 `include` 되며 빌드됨.
+* `lib/kernel/`
+  * PintOS 커널에만 포함되는 C 라이브러리.
+  * 커널 코드에서 사용하는 자료구조가 구현되어 있음. 
+  * bitmaps, doubly linked lists, hash table
+* `lib/user/`
+  * PintOS 유저 프로그램에만 사용되는 C 라이브러리
+* `tests/`
+  * 각 프로젝트를 위한 테스트
+* `examples/`
+  * 프로젝트2를 시작하기 위한 유저 프로그램 예제
+* `misc/`, `utils/`
+  * 로컬 머신에서 Pintos로 작업할 때 유용한 파일들
+
+# Files in build directory
+`threads/`에서 `make` 명령어로 빌드하면 그 결과물은 `threads/build`에 생성됨
+
+* `Makefile`
+  * `pintos/src/Makefile.build`의 복사본. 커널이 어떻게 빌드되었는지 서술
+* `kernel.o`
+  * 전체 커널에 대한 오브젝트 파일
+  * 개별 커널 소스 파일로부터 컴파일된 오브젝트 파일을 링킹한 결과물
+  * 디버그 정보를 포함하므로 GDB나 backtrace로 실행할 수 있음
+* `kernel.bin`
+  * 커널의 메모리 이미지
+  * Pintos 커널을 실행하기 위해 메모리에 로드된 바이트
+  * 디버그 정보가 제거된 `kernel.o`와 동일하다
+  * 커널 로더 설계 상 512KB 제한이 있는데 이를 초과하지 않게 디버그 정보를 제거하여 로드한다.
+* `loader.bin`
+  * 어셈블리로 작성된 커널 로더의 메모리 이미지
+  * PC BIOS 제약으로 512 bytes로 고정됨
+  * 커널을 디스크에서 메모리로 로드하고 시작 시킴 
+
+## 참고
+* `*.o`
+  * 오브젝트 파일
+  * 컴파일러를 통해 기계어로 변환된 파일
+* `*.d`
+  * 의존성(dipendency) 파일
+  * 다른 소스나 헤더 파일이 변경되었을 때 어떤 파일이 재컴파일되어야 하는지 `make`에게 알려주는 파일
 
 # Pintos File System 사용 및 user program 실행
 
@@ -70,7 +132,8 @@ pintos --filesys-size=2 –p ../../examples/echo –a echo -- -f
 
 
 
-# Patch 파일 만들기
+# Patch 적용
+## Patch 파일 만들기
 Patch 파일 생성은 'diff' 명령을 사용
 ```console
 $ diff [옵션] [원본파일] [수정된파일] > 출력파일.patch
@@ -85,8 +148,7 @@ $ diff [옵션] [원본디렉토리] [수정된디렉토리] > 출력파일.patc
 토리 모두에 같은 파일이 존재한다고 가정하고 비교를 진행
 * 자세한 옵션은 `$ diff --help`로 확인
 
-## 예제
-* 파일 vs 파일 비교하여 patch 파일 생성 예시
+### 파일 vs 파일 비교하여 patch 파일 생성
 ```console
 diff -u process.c process_new.c > process.c.patch
 ```
@@ -96,7 +158,7 @@ diff -urN pintos/ pintos_new/ > pintos.patch
 ```
 
 
-# Patch 파일 적용하기
+## Patch 파일 적용하기
 * Patch 파일 적용은 `patch` 명령을 사용
 ```console
 patch [옵션] < 결과파일.patch
@@ -109,3 +171,4 @@ patch [옵션] < 결과파일.patch
 ```console
 patch -p0 < pintos.patch
 ```
+

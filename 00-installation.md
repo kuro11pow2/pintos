@@ -1,6 +1,6 @@
 # 목차
 - [목차](#목차)
-- [패키지 설치](#패키지-설치)
+- [OS 환경 설정](#os-환경-설정)
   - [repository 변경](#repository-변경)
   - [openssh server 설치](#openssh-server-설치)
   - [방화벽 설정](#방화벽-설정)
@@ -13,7 +13,9 @@
   - [pintos 환경 변수 등록](#pintos-환경-변수-등록)
   - [pintos 테스트](#pintos-테스트)
 
-# 패키지 설치
+# OS 환경 설정
+
+**Ubuntu-12.04 LTS에서 테스트됨**
 
 ## repository 변경
 지원이 끝난지 한참 지난 버전이므로 패키지 관리자가 보는 repository 주소를 old-releases로 바꿔야 한다.
@@ -22,7 +24,6 @@
 sudo sed -i -re 's/([a-z]{2}\.)?archive.ubuntu.com|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 sudo apt-get update && sudo apt-get upgrade -y
 ```
-
 ## openssh server 설치
 ```console
 sudo apt-get install openssh-server
@@ -75,7 +76,7 @@ tar xvf pintos.tar.gz
 
 ## pintos 컴파일
 ```console
-cd pintos/src/threads
+cd ~/pintos/src/threads
 make
 ```
 
